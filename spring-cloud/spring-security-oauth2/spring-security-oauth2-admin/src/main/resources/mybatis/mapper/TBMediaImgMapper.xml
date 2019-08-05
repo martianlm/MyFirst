@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.martian.mapper.TBMediaImgMapper">
+  <insert id="createMedia">
+  	INSERT INTO tb_media_img (
+		id,
+		NAME,
+		userId,
+		type,
+		imgUrl,
+		description,
+		createTime
+	)
+	VALUE
+		(
+			#{id},
+			#{name},
+			#{userId},
+			#{type},
+			#{imgUrl},
+			#{description},
+			now()
+		);
+  </insert>
+  <select id="selectMedia" resultType="com.martian.model.TBMediaImg">
+  	SELECT 
+  		id as id,
+		NAME as name,
+		userId as userId,
+		type as type,
+		imgUrl as imgUrl,
+		description as description,
+		createTime as createTime,
+		editTime as editTime,
+		modifyName as modifyName
+  	FROM tb_media_img
+  		where 1=1
+	  	<if test="type != null and type != '' ">
+			and type = #{type}
+		</if>
+  </select>
+  <select id="selectMediaById" resultType="com.martian.model.TBMediaImg">
+  	SELECT 
+  		id as id,
+		NAME as name,
+		userId as userId,
+		type as type,
+		imgUrl as imgUrl,
+		description as description,
+		createTime as createTime,
+		editTime as editTime,
+		modifyName as modifyName
+  	FROM tb_media_img
+		where id = #{id}
+  </select>
+  <delete id="deleteMediaById" parameterType="java.lang.Integer">
+  	delete 
+  	from tb_media_img
+		where id = #{id}
+  </delete>
+</mapper>
